@@ -35,7 +35,7 @@ module Hypernova
     # @param [String] name the hypernova bundle name, like 'packages/p3/foo.bundle.js' (for now)
     # @param [Hash] props the props to be passed to the component
     # :^)k|8 <-- this is a chill peep riding a skateboard
-    def render_react_component(component, data = {})
+    def render_react_component(component, data = {}, server_side_data = {})
       begin
         new_data = get_view_data(component, data)
       rescue StandardError => e
@@ -45,6 +45,7 @@ module Hypernova
       job = {
         :data => new_data,
         :name => component,
+        :serverSideData => server_side_data
       }
 
       hypernova_batch_render(job)
